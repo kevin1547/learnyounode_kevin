@@ -2,10 +2,10 @@ const http = require('http');
 const bl = require('bl');
 //const { resolve } = require('path');
 //const { rejects } = require('assert');
-function step(){
+function step(url){
     return new Promise((resolve, reject)=>{
             
-            let require = http.get(process.argv[2]);
+            let require = http.get(url);
             require.on('data', result =>{
                 resolve(result);
             });
@@ -17,7 +17,7 @@ function step(){
 const box = [];
 async function start(){
     for(i = 2; i < process.argv.length; i++){
-        const final = await step();
+        const final = await step(process.argv[i]);
         final.setEncoding('utf-8');
         final.pipe(bl(function(err, answer){
             if(err){console.err(err);}
