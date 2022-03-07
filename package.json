@@ -19,6 +19,8 @@
   "homepage": "https://github.com/kevin1547/learnyounode_kevin#readme",
   "dependencies": {
     "bl": "^5.0.0",
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "concat": "^1.0.3",
+    "concat-stream": "^2.0.0"
   }
 }

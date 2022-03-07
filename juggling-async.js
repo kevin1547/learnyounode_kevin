@@ -1,3 +1,4 @@
+/*
 const http = require('http');
 const bl = require('bl');
 //const { resolve } = require('path');
@@ -25,6 +26,7 @@ async function start(){
             box.push(answer);
             //console.log(answer);
         }))
+        
 }
 box.forEach(item => {
     console.log(item);
@@ -32,7 +34,7 @@ box.forEach(item => {
 }
 start();
 
-
+*/
 
 
 
@@ -59,7 +61,6 @@ function thelastresult(){
 
 function themiddleresult(index){ 
     http.get(process.argv[2 + index], function(response){
-        console.log('i am response >>>>>>>>>>'+response)
     response.pipe(bl(function(err, data){
         if(err){console.err(err);}
 
@@ -76,3 +77,64 @@ function themiddleresult(index){
 for(let i = 0; i < 3; i++){
     themiddleresult(i);
 }*/
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+const http = require('http')
+const bl = require('bl')
+//ES6 solution
+function toGet (url) {
+  return new Promise(resolve => {
+    http.get(url, res => resolve(res))
+  })
+}
+const list = []
+async function doit () {
+  for (i = 2; i < process.argv.length; i++) {
+    const res = await toGet(process.argv[i])
+    res.setEncoding('utf8')
+    res.pipe(bl(function(err, answer){
+        if(err){console.err(err);}
+        
+        console.log(answer.toString());
+        //list.push(answer);
+    }))
+  }
+/*
+  for(let x = 0; x < 3; x++){
+      console.log(list[x]);
+  }
+  
+  list.forEach(item => {
+    console.log(item);
+  })*/
+}
+
+doit()
+
+
+/*
+const http = require('http')
+const concat = require('concat-stream')
+//ES6 solution
+function toGet (url) {
+  return new Promise(resolve => {
+    http.get(process.argv[2], function(res){
+        resolve(res) 
+    })
+  })
+}
+const list = []
+async function doit () {
+  for (i = 2; i < process.argv.length; i++) {
+    const res = await toGet(process.argv[i])
+    res.setEncoding('utf8')
+    res.pipe(concat(data => {
+        list.push(data)
+      })
+    )
+  }
+  list.forEach(item => {
+    console.log(item)
+  })
+}
+doit()*/
