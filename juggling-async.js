@@ -1,21 +1,51 @@
-/*const http = require('http');
+const http = require('http');
 const bl = require('bl');
-let n = 0;
+//const { resolve } = require('path');
+//const { rejects } = require('assert');
+function step(){
+    return new Promise((resolve, reject)=>{
+            
+            let require = http.get(process.argv[2]);
+            require.on('data', result =>{
+                resolve(result);
+            });
+            require.on('error', err=>{
+                reject(err);
+            });
+    });
+}
+const box = [];
+async function start(){
+    for(i = 2; i < process.argv.length; i++){
+        const final = await step();
+        final.setEncoding('utf-8');
+        final.pipe(bl(function(err, answer){
+            if(err){console.err(err);}
 
-
-for(let i = 4; i >=2; i--){
-    
-    if(i === 4){n = i - 1;}
-    else if(i === 3){n = i + 1;}
-    const url = process.argv[n];
-    http.get(url, function(things){
-    things.setEncoding('utf-8');
-    things.pipe(bl(function(err, data){
-        const newdata = data.toString();
-        console.log(newdata);
-    }))
+            box.push(answer);
+            //console.log(answer);
+        }))
+}
+box.forEach(item => {
+    console.log(item);
 })
-}*/
+}
+start();
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+
 const http = require('http');
 const bl = require('bl');
 const box = [];
@@ -29,6 +59,7 @@ function thelastresult(){
 
 function themiddleresult(index){ 
     http.get(process.argv[2 + index], function(response){
+        console.log('i am response >>>>>>>>>>'+response)
     response.pipe(bl(function(err, data){
         if(err){console.err(err);}
 
@@ -44,4 +75,4 @@ function themiddleresult(index){
 
 for(let i = 0; i < 3; i++){
     themiddleresult(i);
-}
+}*/
