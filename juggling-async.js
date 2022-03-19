@@ -78,7 +78,7 @@ for(let i = 0; i < 3; i++){
     themiddleresult(i);
 }*/
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+/*
 const http = require('http')
 const bl = require('bl')
 //ES6 solution
@@ -99,20 +99,17 @@ async function doit () {
         //list.push(answer);
     }))
   }
-/*
-  for(let x = 0; x < 3; x++){
-      console.log(list[x]);
-  }
+
   
   list.forEach(item => {
     console.log(item);
-  })*/
+  })
 }
 
-doit()
+doit()*/
 
 
-/*
+
 const http = require('http')
 const concat = require('concat-stream')
 //ES6 solution
@@ -129,12 +126,9 @@ async function doit () {
     const res = await toGet(process.argv[i])
     res.setEncoding('utf8')
     res.pipe(concat(data => {
-        list.push(data)
+        console.log(data.toString())
       })
     )
   }
-  list.forEach(item => {
-    console.log(item)
-  })
 }
-doit()*/
+doit()
